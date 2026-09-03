@@ -1,71 +1,203 @@
-.container{
-    height: 20vh;
-    background-color: bisque;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+/* Modern CSS Reset & Variable Setup */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-.inside-container{
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-}
-.inside-container button{
-    margin-top:20px ;
-    border: none;
-    padding: 10px 28px;
-    border-radius: 20px;
-    background-color: beige;
-    font-size: 18px;
-    cursor: pointer;
-}
-.inside-container button:hover{
-    background-color: bisque;
-}
-.tabs{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.todo-container{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-.todo-container button{
-    width: min-content;
-    padding: 10px 25px;
-    background-color: black;
-    color: aliceblue;
-    font-size: 20px;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-}
-.todo-item{
-    display: flex;
-    flex-direction: row;
-}
-.empty-fields{
-    padding: 10px;
-    width: 30vw;
-    border: none;
-    border-radius: 10px;
-}
-.check-box{
-    margin-left: 15px;
-    width: 33px;
-    height: 33px;
 
+:root {
+  --primary-color: #5841eb;
+  --primary-hover: #432ec4;
+  --bg-color: #f4f6fa;
+  --card-bg: #ffffff;
+  --text-main: #1e1e24;
+  --text-muted: #6c757d;
+  --border-color: #e2e8f0;
+  --radius-lg: 12px;
+  --radius-md: 8px;
+  --shadow: 0 10px 30px rgba(88, 65, 235, 0.05);
 }
-.completed-container{
-    font-family: sans-serif;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Allows scrolling if list grows long */
+  min-height: 100vh;
+  padding: 40px 20px;
 }
-.completed-container h3{
-    font-size: 25px;
+
+/* Layout Container */
+.container {
+  width: 100%;
+  max-width: 540px; /* Optimal size for a utility dashboard layout */
+  background-color: var(--card-bg);
+  padding: 35px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.container h1 {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.para {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 15px;
+  margin-top: -10px; /* Pulls closer to heading */
+  margin-bottom: 10px;
+}
+
+/* Input Form Row */
+.input-div {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.input-div input {
+  flex: 1; /* Automatically expands to take rest of space dynamically */
+  padding: 14px 16px;
+  font-size: 15px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.input-div input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(88, 65, 235, 0.15);
+}
+
+.input-div button {
+  border: none;
+  background-color: var(--primary-color);
+  padding: 0 24px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--card-bg);
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.2s;
+  white-space: nowrap; /* Prevents text wrapping on tiny screens */
+}
+
+.input-div button:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Navigation Tabs */
+.tabs {
+  display: flex;
+  background-color: #edf0f7;
+  padding: 4px;
+  border-radius: var(--radius-md);
+  gap: 2px;
+}
+
+.tabs button {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+/* Active Filter Tab Styling */
+.tabs button.active {
+  background-color: var(--card-bg);
+  color: var(--primary-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  font-weight: 600;
+}
+
+/* List Component Wrapper Styles */
+ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+ul li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background-color: #fafbfe;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+ul li:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+/* Custom Checkbox Engine */
+ul li input[type="checkbox"] {
+  appearance: none; /* Strip browser default */
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #cbd5e1;
+  border-radius: 6px;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+  transition: all 0.15s ease;
+}
+
+ul li input[type="checkbox"]:checked {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+ul li input[type="checkbox"]:checked::before {
+  content: "✓";
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+ul li span {
+  font-size: 15px;
+  color: var(--text-main);
+  transition: color 0.2s, text-decoration 0.2s;
+}
+
+/* Mobile Responsiveness Auto-handling */
+@media (max-width: 480px) {
+  body {
+    padding: 15px;
+  }
+  
+  .container {
+    padding: 20px 15px;
+  }
+
+  .input-div {
+    flex-direction: column; /* Stacks input and button nicely on small phones */
+  }
+
+  .input-div button {
+    padding: 14px;
+  }
 }

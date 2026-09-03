@@ -1,23 +1,19 @@
-import '../App.css';
-function Completed({ todos }) {
+function Completed({ task, toggleTaskCompletion}){
+     const completedTasks = task.filter(e => e.completed);
+    return (
+         <ul>
+      {completedTasks.map((e) => (
+        <li key={e.id}>
+          <input 
+            type="checkbox" 
+            checked={e.completed} 
+            onChange={() => toggleTaskCompletion(e.id)} 
+          />
+          <span style={{ textDecoration: 'line-through' }}>{e.text}</span>
+        </li>
+      ))}
+    </ul>
 
-  return (
-    <div className='completed-container'>
-      <h1>Congratulations! You've completed these tasks</h1>
-      <h3>
-        <ul>
-            {todos
-                .filter(todo => todo.completed)
-                .map(todo => (
-                <li key={todo.id}>
-                    {todo.text}
-                </li>
-                ))}
-            </ul>
-        </h3>
-
-    </div>
-  )
+    )
 }
-
-export default Completed;
+export default Completed
